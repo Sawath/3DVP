@@ -1,9 +1,11 @@
 import sys
 import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from fastapi.testclient import TestClient
 from main import app
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 client = TestClient(app)
@@ -13,7 +15,7 @@ client = TestClient(app)
 def test_get_items():
     response = client.get("/items")
     assert response.status_code == 200
-    assert isinstance(response.json())
+    assert isinstance(response.json(), list)
 
 
 # Test pour recuperer un item spécifique
